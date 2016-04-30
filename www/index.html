@@ -1,0 +1,307 @@
+<!-- Autor: Pavol Loffay, xloffa00@fit.vutbr.cz -->
+<!-- Date: 1.3.2013 -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="iso-8859-2"> 
+    <meta name="author" content="Pavol Loffay">
+    <meta name="description" content="Meranie priepustnosti siete">
+    <title>Nástroje pre testovanie priepustnosti siete</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<!-- container... to je div v ktorom je vsetko a je centrovany na stred -->
+<div id="container">
+    <div class="header">
+        <img src="img/logo.png" alt="logo" width="940" height="190" />
+    </div>
+    
+    <div id="menu_buttons">
+        <div class="menu_button"><a href="index.html" class="menu_link">Úvod</a></div>
+        <div class="menu_button"><a href="iperf.html" class="menu_link">Iperf</a></div>
+        <div class="menu_button"><a href="netperf.html"
+                class="menu_link">Netperf</a></div>
+        <div class="menu_button"><a href="bwctl.html" class="menu_link">BWCTL</a></div>
+        <div class="menu_button"><a href="thrulay.html"
+                class="menu_link">Thrulay</a></div>
+        <div class="menu_button"><a href="nuttcp.html" class="menu_link">Nuttcp</a></div>
+        <div class="menu_button"><a href="bwping.html" class="menu_link">BWPing</a></div>
+        <div class="menu_button"><a href="owamp.html" class="menu_link">OWAMP</a></div>
+    </div>
+    
+    <div class="content">
+        <h1>Úvodné informácie</h1>
+        <p>Na tejto stránke nájdete informácie o použiteľnosti <b>open source</b> 
+        nástrojov na meranie rôznych parametrov sieťového prenosu. 
+        Porovnanie nástrojov sa nachádza, v dvoch tabuľkách umiestnených v 
+        spodnej časti tejto stránky. Prvá obsahuje informácie o meraní 
+        vybraných parametrov sieťového prenosu. Druhá sa venuje 
+        funkcionálnym vlastnostiam nástrojov, ako je podpora IPv6 a 
+        rôznych operačných systémov. Obsah tejto stránky vznikol na základe 
+        <a href="http://www.fit.vutbr.cz/study/DP/all.php?y=*&ved=&st=&t=&k=&SubmitButton=Search" 
+            target="_blank">bakalárskej práce</a>, v ktorej nájdete širšie informácie o 
+        použitých metodikách a popis nástrojov. Práca ďalej obsahuje 
+        výsledky z meraní na reálnej sieti, ktoré sme použili pri 
+        tvorbe doporučení nástrojov.
+        </p>
+
+
+        <table class="metodika">
+            <tr>
+                <td class="metodika"> Výpis <b>parametrov sieťového prenosu</b>,
+                        ktoré sme u jednotlivých nástrojoch
+                        sledovali:</td>
+                <td class="metodika"> Výpis <b>funkcionálnych vlastnostností</b>,
+                        ktoré sme pri nástrojoch
+                        sledovali:</td>
+            </tr>
+            <tr>
+                <td class="metodika">
+                    <ul>
+                        <li>TCP priepustnosť</li>
+                        <li>UDP priepustnosť</li>
+                        <li>Jednosmerné oneskorenie</li>
+                        <li>Jitter - rozptyl oneskorenia</li>
+                        <li>Zmena poradia paketov</li>
+                        <li>Strata paketov</li>
+                    </ul>
+                </td>
+                <td class="metodika">
+                    <ul>
+                        <li>Podpora OS Linux</li>
+                        <li>Podpora OS Windows</li>
+                        <li>Podpora OS FreeBSD</li>
+                        <li>Podpora protokolu IPv6</li>
+                        <li>Klient umiestnený za NAT</li>
+                        <li>Aktívny vývoj</li>
+                    </ul>
+               </td>
+            </tr>
+        </table>
+
+        Zoznam <b>testovaných nástrojov</b>:
+        <ul>
+            <li>Iperf</li>
+            <li>Netperf</li>
+            <li>BWCTL</li>
+            <li>Thrulay</li>
+            <li>Nuttcp</li>
+            <li>BWPing</li>
+            <li>OWAMP</li>
+        </ul>
+
+        <h2>Doporučené nástroje</h2>
+        Všetky z testovaných nástrojov pri testovaní na reálnej
+        sieti poskytli viac-menej totožné výsledky. Predmetom
+        testovania bolo meranie priepustnosti pod transportným
+        protokolom TCP a UDP. Ďalej sme porovnávali výsledky
+        stratovosti paketov z merania UDP priepustnosti. Keďže 
+        všetky nástroje odmerali hodnoty týchto veličín približne
+        zhodne nie je možné jednoznačne rozhodnúť, ktorý nástroj je
+        najvhodnejší na meranie vybraného parametra. Preto sme rozhodli,
+        že výber najvhodnejšieho nástroja sa bude zakladať na ďalších 
+        vlastnostiach. Medzi ktoré patrí napríklad podpora operačných 
+        systémov, nekorektné správanie a v neposlednom rade aj dostupnosť
+        aktuálnej verzie v balíčkových repozitároch.
+
+        <ul><li><h4>TCP priepustnosť: Iperf, Netperf, Thrulay, Nuttcp</h4></li></ul>
+        Ak by sme mali doporučiť nástroje na meranie TCP priepustnosti
+        boli by to <b>Iperf</b>, <b>Nuttcp</b> a <b>Thrulay</b>. V tomto 
+        smere je Iperf najlepšia voľba, pretože v súčasnej súčasnej dobe
+        je najpoužívanejší a dostupný takmer vo všetkých balíčkových 
+        repozitároch. Nuttcp sa stále vyvíja, tak je ho vhodné preložiť
+        zo zdrojového textu, ktorý predstavuje jeden  súbor.
+
+        <ul><li><h4>UDP priepustnosť: Iperf, Nuttcp, BWPing</h4></li></ul>
+        Pre meranie UDP priepustnosti by sme taktiež zvolili <b>Iperf</b>.
+        V niektorých prípadoch klientská časť nezobrazí výsledky
+        o nameranej priepustnosti, čo sme zaradili do nekorektného
+        správania. Tieto výsledky sú vypisované na štandardný 
+        výstup na strane servera. Kvôli výskytu tejto chyby sme
+        zvolili za odporučený nástroj <b>Nuttcp</b>, ktorý zvláda testovanie
+        bez problémov. Výsledky nameraných hodnôt utility BWPing boli
+        výrazne nižšie ako dostupná priepustnosť. Preto tento nástroj nedoporučujeme.
+
+        <ul><li><h4>Strata paketov: Iperf, Nuttcp, Thrulay</h4></li></ul>
+        Meranie stratovosti paketov je možné iba s transportným
+        protokolom UDP. Výsledky dosiahnutej stratovosti bývajú
+        k dispozícii pri teste UDP priepustnosti. Ako pri meraní
+        UDP priepustnosti by sme odporučili nástroj <b>Iperf</b>. Treba
+        poznamenať, že pre nekorektné správanie by sa výsledok
+        nemusel zobraziť. Výhodný nástroj na meranie tohto parametra
+        je <b>Nuttcp</b>. Thrulay taktiež správne odmeral stratovosť paketov,
+        ale nástroj neposkytuje údaj o dosiahnutej UDP priepustnosti
+        pri nameranej stratovosti paketov.
+
+        <ul><li><h4>Jednosmerné oneskorenie: OWAMP</h4></li></ul>
+        Výsledky merania jednosmerného oneskorenia preukázali, že nástroj
+        OWAMP, odmeral vždy väčšiu hodnotu ako nástroj Ping. Hodnota
+        jednosmerného oneskorenia, by mala byť vždy menšia ako hodnota
+        RTT. Vyhodnotenie, ktorý z nástrojov poskytuje správne výsledky
+        vyžaduje rozsiahle testovanie.
+
+        <ul><li><h4>Testovanie bez prístupu na druhú koncovú stanicu</h4></li></ul>
+        Ak nemáme prístup na stanicu, voči ktorej chceme odmerať priepustnosť
+        alebo stratu paketov, môžeme použiť nástroj <b>BWPing</b>. Nástroj používa
+        pre svoju činnosť protokol ICMP, čo môže spôsobovať rôzne problémy.
+        Výsledky merania pomocou nástroja BWPing neboli zhodné v porovnaní
+        s ostatnými nástrojmi. Nameraná priepustnosť bola vždy menšia.
+        Nástroj doporučujeme používať v prípade, ak nemáme prístup na druhú stanicu.
+
+        <ul><li><h4>Najpoužiteľnejší nástroj</h4></li></ul>
+        Zo všetkých testovaných nástrojov by sme určili za najpoužiteľnejší 
+        <b>Nuttcp</b>. Je jednoduchý na použitie a vo všetkých prípadoch pracoval 
+        správne. Jeho nevýhodou je, že nie je tak rozšírený a používaný ako Iperf.
+
+        <br>
+        <br>
+        <h2>Tabuľky s porovnaním</h2>
+        <table class="table">
+            <caption>Funkcionálne vlastnosti nástrojov.</caption>
+            <tr>
+                <th>Nástroj</th>
+                <th>TCP priep.</th>
+                <th>UDP priep.</th>
+                <th>Oneskorenie</th>
+                <th>Jitter</th>
+                <th>Zmena poradia</th>
+                <th>Strata paketov</th>
+            </tr>
+            <tr>
+                <td>Iperf</td>
+                <td>áno</td>
+                <td>áno</td>
+                <td></td>
+                <td>áno</td>
+                <td></td>
+                <td>áno</td>
+            </tr>
+            <tr>
+                <td>Netperf</td>
+                <td>áno</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>OWAMP</td>
+                <td></td>
+                <td></td>
+                <td>áno</td>
+                <td>áno</td>
+                <td>áno</td>
+                <td>áno</td>
+            </tr>
+            <tr>
+                <td>Thrulay</td>
+                <td>áno</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>áno</td>
+                <td>áno</td>
+            </tr>
+            <tr>
+                <td>Nuttcp</td>
+                <td>áno</td>
+                <td>áno</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>áno</td>
+            </tr>
+            <tr>
+                <td>BWPing</td>
+                <td></td>
+                <td>áno</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>áno</td>
+            </tr>
+        </table>
+
+        <table class="table">
+            <caption>Podpora operačných systémov a ďalšie vlastnosti.</caption>
+            <tr>
+                <th>Nástroj</th>
+                <th>Linux</th>
+                <th>Windows</th>
+                <th>FreeBSD</th>
+                <th>IPv6</th>
+                <th>NAT</th>
+                <th>Aktívny vývoj</th>
+            </tr>
+            <tr>
+                <td>Iperf</td>
+                <td>áno</td>
+                <td>áno</td>
+                <td></td>
+                <td>áno</td>
+                <td>áno</td>
+                <td>áno</td>
+            </tr>
+            <tr>
+                <td>Netperf</td>
+                <td>áno</td>
+                <td>áno</td>
+                <td>áno</td>
+                <td></td>
+                <td>áno</td>
+                <td>áno</td>
+            </tr>
+            <tr>
+                <td>OWAMP</td>
+                <td>áno</td>
+                <td></td>
+                <td>áno</td>
+                <td>áno</td>
+                <td></td>
+                <td>áno</td>
+            </tr>
+            <tr>
+                <td>Thrulay</td>
+                <td>áno</td>
+                <td></td>
+                <td></td>
+                <td>áno</td>
+                <td>áno</td>
+                <td>áno</td>
+            </tr>
+            <tr>
+                <td>Nuttcp</td>
+                <td>áno</td>
+                <td>áno</td>
+                <td>áno</td>
+                <td></td>
+                <td>áno</td>
+                <td>áno</td>
+            </tr>
+            <tr>
+                <td>BWPing</td>
+                <td>áno</td>
+                <td></td>
+                <td>áno</td>
+                <td>áno</td>
+                <td>áno</td>
+                <td>áno</td>
+            </tr>
+        </table>
+
+        <br>
+        <h3>Obecné postupy pri testovaní</h3>
+        Bez zadania parametrov nástroje spúšťajú meranie TCP priepustnosti s
+        časom trvania 10 sekúnd. Pri meraní UDP priepustnosti sa snažia
+        dosiahnuť maximálnu priepustnosť 1 Mbps. Ak chceme otestovať vyššiu
+        priepustnosť musíme ju špecifikovať pomocou parametra.
+
+    </div>
+    <p class="footer">&copy; Pavol Loffay</p>
+</div>
+  
+</body>
+</html>

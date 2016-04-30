@@ -1,0 +1,169 @@
+<!-- Autor: Pavol Loffay, xloffa00@fit.vutbr.cz -->
+<!-- Date: 1.3.2013 -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="iso-8859-2"> 
+    <meta name="author" content="Pavol Loffay">
+    <meta name="description" content="Meranie priepustnosti siete">
+    <title>Nástroje pre testovanie priepustnosti siete</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<!-- container... to je div v ktorom je vsetko a je centrovany na stred -->
+<div id="container">
+    <div class="header">
+        <img src="img/logo.png" alt="logo" width="940" height="190" />
+    </div>
+    
+    <div id="menu_buttons">
+        <div class="menu_button"><a href="index.html" class="menu_link">Úvod</a></div>
+        <div class="menu_button"><a href="iperf.html" class="menu_link">Iperf</a></div>
+        <div class="menu_button"><a href="netperf.html"
+                class="menu_link">Netperf</a></div>
+        <div class="menu_button"><a href="bwctl.html" class="menu_link">BWCTL</a></div>
+        <div class="menu_button"><a href="thrulay.html"
+                class="menu_link">Thrulay</a></div>
+        <div class="menu_button"><a href="nuttcp.html" class="menu_link">Nuttcp</a></div>
+        <div class="menu_button"><a href="bwping.html" class="menu_link">BWPing</a></div>
+        <div class="menu_button"><a href="owamp.html" class="menu_link">OWAMP</a></div>
+    </div>
+    
+    <div class="content">
+        <h1>Nuttcp</h1>
+        Nástroj vznikol z pôvodnej BSD utility Ttcp, ktorá bola 
+        vyvinutá v 80. rokoch 20. storočia. Úpravou a rozširovaním
+        tohto nástroja vzniklo viacero projektov: Nttcp a Nuttcp.
+        My sme sa rozhodli použiť Nuttcp, pretože ponúka najširšie
+        možnosti testovania. Jeho prednosti, ktorými sú jednoduchosť
+        a funkcionalita ho autori považujú za najlepší dostupný open 
+        source nástroj na meranie parametrov sieťového prenosu. Ako
+        jediný z testovaných utilít obsahuje implementáciu v jednom
+        zdrojovom texte.
+
+        <br>
+        <br>
+        <h3>Zdroje a základne spustenie</h3>
+        <a href="http://www.nuttcp.net/nuttcp/Welcome%20Page.html" target="_blank">Domovská stránka</a>
+        <br>
+        <a href="http://www.lcp.nrl.navy.mil/nuttcp/nuttcp.html"
+            target="_blank">Manuál</a>
+        <br>
+        <a href="http://lcp.nrl.navy.mil/nuttcp/" target="_blank">Link na stiahnutie</a> 
+        - Použitá verzia 7.2.1
+        <br>
+        <br>
+        Architektúra klient-server, nuttcp, nuttcp -S.
+        <br>
+        Príklad základného spustenia klienta a servera:
+        <pre>$ nuttcp &lt;adresa&gt;</pre>
+        <pre>$ nuttcp -S --nofork</pre>
+        <br>
+        Príklad preloženia
+        <br>
+        cc -O3 -o nuttcp nuttcp-7.2.1.c
+        <br>
+
+        <h2>Ukážka testov</h2>
+        <br>
+        Test <b>TCP priepustnosti</b>.
+        <br>
+        <code>$ nuttcp adresa </code>
+        <br>
+        <img src="img/nuttcp_tcp.png" alt="nuttcp adresa" width="650"
+        height="30">
+        <br>
+        <br>
+        Test <b>UDP priepustnosti</b> do hodnoty 100 Mbps.
+        <br>
+        <code>$ nuttcp -u -R 100M adresa</code>
+        <br>
+        <img src="img/nuttcp_udp.png" alt="nuttcp -u -R 100M adresa"
+        width="650" height="30">
+
+        <br>
+        <br>
+        <h2>Nekorektné správanie</h2>
+        <br>
+        Neschopnosť spustiť testovanie pod protokolom IPv6.
+        Klientská časť aplikácie niekedy nebola schopná nadviazať spojenie. Túto
+        chybu je možné potlačiť použitím prepínača <code>-4</code>, ktorý vynúti
+        použitie sieťového protokolu IPv4.
+        <br>
+        <br>
+        <h2>Vybrané prepínače</h2>
+        <br>
+        <table class="table">
+            <caption>Vybrané prepínače nástroja Nuttcp.</caption>
+            <tr>
+                <th>Parameter</th>
+                <th>Popis</th>
+            </tr>
+            <tr>
+                <th colspan="2">Spoločné prepínače</th>
+            </tr>
+            <tr>
+                <td><code>-p &lt;číslo&gt;</code></td>
+                <td>číslo portu</td>
+            </tr>
+            <tr>
+                <td><code>-v</code></td>
+                <td>doplnkové výpisy</td>
+            </tr>
+            <tr>
+                <td><code>-4</code></td>
+                <td>použitie IPv4</td>
+            </tr>
+            <tr>
+                <td><code>-6</code></td>
+                <td>použitie IPv6</td>
+            </tr>
+            <tr>
+                <th colspan="2">Prepínače pre klienta</th>
+            </tr>
+            <tr>
+                <td><code>-r</code></td>
+                <td>prevedie testovanie od servera ku klientovi</td>
+            </tr>
+            <tr>
+                <td><code>-u</code></td>
+                <td>použitie protokolu UDP, testuje priepustnosť do 1 Mbps</td>
+            </tr>
+            <tr>
+                <td><code>-R &lt;číslo&gt;[MG]</code></td>
+                <td>určí maximálnu testovanú priepustnosť</td>
+            </tr>
+            <tr>
+                <td><code>-T &lt;číslo&gt;[mh]</code></td>
+                <td>dĺžka trvania testu, m - minúty, h - hodiny, bez značky
+                    sekundy</td>
+            </tr>
+            <tr>
+                <td><code>-i &lt;číslo&gt;</code></td>
+                <td>časový interval výpisov merania</td>
+            </tr>
+            <tr>
+                <th colspan="2">Prepínače pre démona</th>
+            </tr>
+            <tr>
+                <td><code>-p &lt;číslo&gt;</code></td>
+                <td>číslo portu</td>
+            </tr>
+            <tr>
+                <td><code>-S</code></td>
+                <td>spustí démona</td>
+            </tr>
+            <tr>
+                <td><code>--nofork</code></td>
+                <td>program sa spustí na popredí</td>
+            </tr>
+
+        </table>
+    </div>
+    <p class="footer">&copy; Pavol Loffay</p>
+</div>
+  
+</body>
+</html>

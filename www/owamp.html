@@ -1,0 +1,154 @@
+<!-- Autor: Pavol Loffay, xloffa00@fit.vutbr.cz -->
+<!-- Date: 1.3.2013 -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="iso-8859-2"> 
+    <meta name="author" content="Pavol Loffay">
+    <meta name="description" content="Meranie priepustnosti siete">
+    <title>Nástroje pre testovanie priepustnosti siete</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<!-- container... to je div v ktorom je vsetko a je centrovany na stred -->
+<div id="container">
+    <div class="header">
+        <img src="img/logo.png" alt="logo" width="940" height="190" />
+    </div>
+    
+    <div id="menu_buttons">
+        <div class="menu_button"><a href="index.html" class="menu_link">Úvod</a></div>
+        <div class="menu_button"><a href="iperf.html" class="menu_link">Iperf</a></div>
+        <div class="menu_button"><a href="netperf.html"
+                class="menu_link">Netperf</a></div>
+        <div class="menu_button"><a href="bwctl.html" class="menu_link">BWCTL</a></div>
+        <div class="menu_button"><a href="thrulay.html"
+                class="menu_link">Thrulay</a></div>
+        <div class="menu_button"><a href="nuttcp.html" class="menu_link">Nuttcp</a></div>
+        <div class="menu_button"><a href="bwping.html" class="menu_link">BWPing</a></div>
+        <div class="menu_button"><a href="owamp.html" class="menu_link">OWAMP</a></div>
+    </div>
+    
+    <div class="content">
+        <h1>OWAMP</h1>
+        Nástroj implementujúci protokol OWAMP, ktorý bol
+        navrhnutý na testovanie jednosmerného oneskorenia 
+        medzi dvoma stanicami. Hodnota jednosmerného oneskorenia
+        môže pomôcť pri lepšej identifikácii problému. Je nutné 
+        zdôrazniť, že táto utilita nie je schopná odmerať priepustnosť.
+        Namerané hodnoty boli v porovnaní s hodnotami RTT, získaných 
+        pomocou utility Ping vždy väčšie. Hodnota jednosmerného 
+        oneskorenia musí byť nižšia ako RTT. Aby sme mohli rozhodnúť,
+        ktoré výsledky boli správne vyžaduje podrobnejšie testovanie.
+
+        <br>
+        <br>
+        <h3>Zdroje a základne spustenie</h3>
+        <a href="http://www.internet2.edu/performance/owamp/" target="_blank">Domovská stránka</a>
+        <br>
+        <a href="http://www.internet2.edu/performance/owamp/manpages.html"
+            target="_blank">Manuál</a>
+        <br>
+        <a href="http://software.internet2.edu/sources/owamp/" target="_blank">Link na stiahnutie</a> 
+        - Použitá verzia 3.3
+        <br>
+        <br>
+        Architektúra klient-server, owping, owampd.
+        <br>
+        Príklad základného spustenia klienta a servera:
+        <pre>$ owping -c &lt;adresa&gt;:&lt;port&gt;</pre>
+        <pre>$ owampd -S &lt;adresa&gt;:&lt;port&gt;</pre>
+        <br>
+        <b>Vyžaduje</b> synchronizovaný čas pomocou <b>NTP</b> - Network Time Protocol.
+        <br>
+        Úpravy v owampd.conf, aby démon poslúchal na danej IP adrese a porte,
+        ktorý nevyžaduje práva super užívateľa.
+        <pre>srcdone localhost:861</pre>
+        <pre>srcnode  adresa_rozhrania:8610</pre>
+        <h2>Ukážka testov</h2>
+        <br>
+        Test <b>jednosmerného oneskorenia</b>, počet poslaných paketov 110.
+        <br>
+        <code>$ owping -c 110 adresa</code>
+        <br>
+        <img src="img/owping_c_110.png" alt="owping -c 110 adresa"
+        width="650" height="300">
+
+        <br>
+        <br>
+        <h2>Nekorektné správanie</h2>
+        <br>
+        Ak sa klient nachádzal za prekladom adries nebolo možné 
+        nadviazať spojenie s démonom. Z toho vyplýva, že aplikáciu nebude
+        môcť používať väčšina bežných užívateľov, kvôli rozšírenému použitiu  
+        prekladu adries.
+
+        <br>
+        <br>
+        <h2>Vybrané prepínače</h2>
+        <br>
+        <table class="table">
+            <caption>Vybrané prepínače nástroja OWAMP.</caption>
+            <tr>
+                <th>Parameter</th>
+                <th>Popis</th>
+            </tr>
+            <tr>
+                <th colspan="2">Prepínače pre owping</th>
+            </tr>
+            <tr>
+                <td><code>-h</code></td>
+                <td>výpis nápovedy</td>
+            </tr>
+            <tr>
+                <td><code>-c &lt;číslo&gt;</code></td>
+                <td>počet testovacích paketov, (implicitne 100)</td>
+            </tr>
+            <tr>
+                <td><code>-f</code></td>
+                <td>prevedie jednosmerný test smerom od 
+                    vzdialeného hostiteľa</td>
+            </tr>
+            <tr>
+                <td><code>-t</code></td>
+                <td>prevedie jednosmerný test smerom k 
+                    vzdialenému hostiteľovi</td>
+            </tr>
+            <tr>
+                <td><code>-s &lt;číslo&gt;</code></td>
+                <td>veľkosť paketu</td>
+            </tr>
+            <tr>
+                <td><code>-4</code></td>
+                <td>použije IPv4 protokol, (implicitne preferuje IPv6)</td>
+            </tr>
+            <tr>
+                <td><code>-6</code></td>
+                <td>použije IPv6 protokol</td>
+            </tr>
+            <tr>
+                <th colspan="2">Prepínače pre owampd</th>
+            </tr>
+            <tr>
+                <td><code>-Z</code></td>
+                <td>spustenie na popredí</td>
+            </tr>
+            <tr>
+                <td><code>-c &lt;adresa&gt;</code></td>
+                <td>cesta k priečinku obsahujúcemu konfiguračné súbory
+                    (owampd.conf, owampd.limits, ak sa nezadá berie aktuálny
+                    pracovný adresár)</td>
+            </tr>
+            <tr>
+                <td><code>-S &lt;adresa&gt;:port</code></td>
+                <td>určí adresu a port na ktorom bude prijímať spojenia</td>
+            </tr>
+        </table>
+    </div>
+    <p class="footer">&copy; Pavol Loffay</p>
+</div>
+  
+</body>
+</html>

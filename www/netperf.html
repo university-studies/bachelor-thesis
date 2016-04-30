@@ -1,0 +1,181 @@
+<!-- Autor: Pavol Loffay, xloffa00@fit.vutbr.cz -->
+<!-- Date: 1.3.2013 -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="iso-8859-2"> 
+    <meta name="author" content="Pavol Loffay">
+    <meta name="description" content="Meranie priepustnosti siete">
+<title>Nástroje pre testovanie priepustnosti siete</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<!-- container... to je div v ktorom je vsetko a je centrovany na stred -->
+<div id="container">
+    <div class="header">
+        <img src="img/logo.png" alt="logo" width="940" height="190" />
+    </div>
+    
+    <div id="menu_buttons">
+        <div class="menu_button"><a href="index.html" class="menu_link">Úvod</a></div>
+        <div class="menu_button"><a href="iperf.html" class="menu_link">Iperf</a></div>
+        <div class="menu_button"><a href="netperf.html"
+                class="menu_link">Netperf</a></div>
+        <div class="menu_button"><a href="bwctl.html" class="menu_link">BWCTL</a></div>
+        <div class="menu_button"><a href="thrulay.html"
+                class="menu_link">Thrulay</a></div>
+        <div class="menu_button"><a href="nuttcp.html" class="menu_link">Nuttcp</a></div>
+        <div class="menu_button"><a href="bwping.html" class="menu_link">BWPing</a></div>
+        <div class="menu_button"><a href="owamp.html" class="menu_link">OWAMP</a></div>
+    </div>
+
+    <div class="content">
+        <h1>Netperf</h1>
+        Táto utilita poskytuje možnosti testovania rôznych aspektov
+        sieťového výkonu. Nezameriava sa len na meranie TCP a UDP
+        priepustnosti. Pri testovaní sa prejavilo mnoho chýb v 
+        implementácii, ktoré značne obmedzujú použitie tohto nástroja.
+
+        <br>
+        <br>
+        <h3>Zdroje a základne spustenie</h3>
+        <a href="http://www.netperf.org/netperf/" target="_blank">Domovská stránka</a>
+        <br>
+        <a href="http://www.netperf.org/svn/netperf2/tags/netperf-2.6.0/doc/netperf.html"
+            target="_blank">Manuál</a>
+        <br>
+        <a href="ftp://ftp.netperf.org/netperf/" target="_blank">Link na stiahnutie</a> 
+        - Použitá verzia 2.6.0
+        <br>
+        <br>
+        Architektúra klient-server, netperf, netserver.
+        <br>
+        Príklad základného spustenia klienta a servera:
+        <pre>$ netperf -H &lt;adresa,protokol&gt;</pre>
+        <pre>$ netserver &lt;adresa,protokol&gt; -D</pre>
+
+        <h2>Ukážka testov</h2>
+        <br>
+        Test <b>TCP priepustnosti</b>.
+        <br>
+        <code>$ netperf -H adresa </code>
+        <br>
+        <img src="img/netperf_client_l_90.png" alt="netperf -H host -l 90"
+            width="750" height="130">
+        <br>
+        <br>
+        Test <b>UDP priepustnosti</b> pod protokolom IPv6.
+        <br>
+        <code>$ netperf -H adresa -t UDP_STREAM </code>
+        <br>
+        <img src="img/netperf_client_ipv6_udp.png" alt="netperf -H host -t
+            UDP_STREAM" width="750" height="130">
+
+        <br>
+        <br>
+        <h2>Nekorektné správanie</h2>
+        <br>
+        S nástrojom Netperf sa nám nepodarilo previesť testovania pod protokolom
+        UDP a spojazdniť komunikáciu so sieťovým protokolom IPv6. Obe tieto 
+        vlastnosti sú v nástroji implementované a uvedené v manuálových
+        stránkach. Testovanie pod transportným protokolom UDP sa podarilo 
+        spojazdniť pri použití rovnakých operačných systémoch na koncových
+        staniciach. Utilita však nechcela nadviazať spojenie pomocou IPv4.
+        Preto meranie UDP priepustnosti nepovažujeme za správne fungujúce.
+
+        <br>
+        <br>
+        <h2>Vybrané prepínače</h2>
+        <br>
+
+        <table class="table">
+            <caption>Vybrané prepínače nástroja Netperf.</caption>
+            <tr>
+                <th>Parameter</th>
+                <th>Popis</th>
+            </tr>
+            <tr>
+                <th colspan="2">Základne</th>
+            </tr>
+            <tr>
+                <td><code>-h</code></td>
+                <td>výpis nápovedy</td>
+            </tr>
+            <tr>
+                <td><code>-V</code></td>
+                <td>výpis verzie</td>
+            </tr>
+            <tr>
+                <td><code>-D</code></td>
+                <td>spustí server na popredí</td>
+            </tr>
+            <tr>
+                <th colspan="2">Nastavenie spojenia</th>
+            </tr>
+            <tr>
+                <td><code>-p &lt;číslo&gt;</code></td>
+                <td>špecifikácia čísla portu</td>
+            </tr>
+            <tr>
+                <td><code>-4</code></td>
+                <td>použije IPv4 adresu, nastaví AF_INET</td>
+            </tr>
+            <tr>
+                <td><code>-6</code></td>
+                <td>použije IPv6 adresu, nastaví AF_INET6</td>
+            </tr>
+            <tr>
+                <td><code>-t &lt;typ&gt;</code></td>
+                <td>typ transportného protokolu, pre UDP hodnota 
+                    UDP_STREAM, pre TCP TCP_STREAM - implicitné</td>
+            </tr>
+            <tr>
+                <th colspan="2">Špecifikácia výpisov</th>
+            </tr>
+            <tr>
+                <td><code>-f [GMKgmk]</code></td>
+                <td>nastaví jednotky výpisu, veľké písmena umocnia jednotky na
+                    druhú a malé na desiatu</td>
+            </tr>
+            <tr>
+                <th colspan="2">Nastavenie dĺžky trvania testu</th>
+            </tr>
+            <tr>
+                <td><code>-l &lt;číslo&gt;</code></td>
+                <td>dĺžka prenosu dát v sekundách</td>
+            </tr>
+            <tr>
+                <th colspan="2">Nastavenie prenášaných dát</th>
+            </tr>
+            <tr>
+                <td><code>-F &lt;cesta&gt;</code></td>
+                <td>prenášane dáta zoberie zo súboru</td>
+            </tr>
+            <tr>
+                <th colspan="2">Test špecifické</th>
+            </tr>
+            <tr>
+                <td><code>-m &lt;číslo&gt;</code></td>
+                <td>nastavenie veľkosti poľa predávaného funkcii send,
+                    použitie pri UDP_STREAM</td>
+            </tr>
+            <tr>
+                <td><code>-s &lt;číslo&gt;</code></td>
+                <td>nastaví veľkosť prijímajúceho a odosielaného poľa
+                    na strane klienta</td>
+            </tr>
+            <tr>
+                <td><code>-S &lt;číslo&gt;</code></td>
+                <td>nastaví veľkosť prijímajúceho a odosielaného poľa
+                    na strane servera</td>
+            </tr>
+        </table>
+    </div>
+    <p class="footer">&copy; Pavol Loffay</p>
+    
+</div>
+  
+</body>
+</html>

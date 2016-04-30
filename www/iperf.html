@@ -1,0 +1,188 @@
+<!-- Autor: Pavol Loffay, xloffa00@fit.vutbr.cz -->
+<!-- Date: 1.3.2013 -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="iso-8859-2"> 
+    <meta name="author" content="Pavol Loffay">
+    <meta name="description" content="Meranie priepustnosti siete">
+<title>Nástroje pre testovanie priepustnosti siete</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<!-- container... to je div v ktorom je vsetko a je centrovany na stred -->
+<div id="container">
+    <div class="header">
+        <img src="img/logo.png" alt="logo" width="940" height="190" />
+    </div>
+    
+    <div id="menu_buttons">
+        <div class="menu_button"><a href="index.html" class="menu_link">Úvod</a></div>
+        <div class="menu_button"><a href="iperf.html" class="menu_link">Iperf</a></div>
+        <div class="menu_button"><a href="netperf.html"
+                class="menu_link">Netperf</a></div>
+        <div class="menu_button"><a href="bwctl.html" class="menu_link">BWCTL</a></div>
+        <div class="menu_button"><a href="thrulay.html"
+                class="menu_link">Thrulay</a></div>
+        <div class="menu_button"><a href="nuttcp.html" class="menu_link">Nuttcp</a></div>
+        <div class="menu_button"><a href="bwping.html" class="menu_link">BWPing</a></div>
+        <div class="menu_button"><a href="owamp.html" class="menu_link">OWAMP</a></div>
+    </div>
+    
+    <div class="content">
+        <h1>Iperf</h1>
+        Iperf bol vyvinutý ako moderná utilita na meranie TCP
+        a UDP priepustnosti. Veľkou výhodou je, že ho nájdeme
+        vo väčšine dostupných balíčkových repozitároch, čo značne
+        urýchľuje inštaláciu. V dnešnej dobe patrí medzi najpoužívanejšie
+        nástroje na meranie sieťových parametrov.
+
+        <br>
+        <br>
+        <h3>Zdroje a základne spustenie</h3>
+        <a href="http://sourceforge.net/projects/iperf/" target="_blank">Domovská stránka</a>
+        <br>
+        <a href="http://sourceforge.net/projects/iperf/" target="_blank">Link na stiahnutie</a> 
+        - Použitá verzia 2.0.5
+        <br>
+        <br>
+        Architektúra klient-server, iperf -c, iperf -s.
+        <br>
+        Príklad základného spustenia klienta a servera:
+        <pre>$ iperf -c &lt;adresa&gt;</pre>
+        <pre>$ iperf -s</pre>
+
+        <h2>Ukážka testov</h2>
+        <br>
+        Test <b>TCP priepustnosti</b>, výpis výsledkov každé 2 s.
+        <br>
+        <code>$ iperf -c adresa </code>
+        <br>
+        <img src="img/iperf_client_tcp_i.png" alt="iperf -c host -i" width="500"
+        height="200">
+        <br>
+        <br>
+        Test <b>UDP priepustnosti</b> do hodnoty 20 Mbps.
+        <br>
+        <code>$ iperf -c adresa -u -b 20M</code>
+        <br>
+        <img src="img/iperf_c_u_b_20_z_domu.png" alt="iperf -c host -u -b 20M"
+        width="500" height="200">
+
+        <br>
+        <br>
+        <h2>Nekorektné správanie</h2>
+        <br>
+        Na obrázku  z výstupu programu Iperf pri UDP
+        testovaní je možné vidieť, že bol prijatý jeden paket v nesprávnom
+        poradí. Toto chybové hlásenie sa vyskytuje vždy ak zahájime UDP test
+        s priepustnosťou väčšou ako je 3 Mbit/s - parameter <code>-b 3M</code>.
+        Niekedy sa nezobrazí výstup s informáciami o UDP priepustnosti, ktoré 
+        posiela server klientovi, takže zobrazená priepustnosť je iba
+        s klientovej strany, ktorá môže obsahovať nesprávne informácie.
+
+        <br>
+        <br>
+        <h2>Vybrané prepínače</h2>
+        <br>
+        <table class="table">
+            <caption>Vybrané prepínače nástroja Iperf.</caption>
+            <tr>
+                <th>Parameter</th>
+                <th>Popis</th>
+            </tr>
+            <tr>
+                <th colspan="2">Základne</th>
+            </tr>
+            <tr>
+                <td><code>-h, --help</code></td>
+                <td>výpis nápovedy</td>
+            </tr>
+            <tr>
+                <td><code>-v, --version</code></td>
+                <td>výpis verzie</td>
+            </tr>
+            <tr>
+                <td><code>-s</code></td>
+                <td>mód servera</td>
+            </tr>
+            <tr>
+                <td><code>-c &lt;dómena&gt;</code></td>
+                <td>mód klienta, doména špecifikuje adresu, alebo 
+                    doménové meno na ktorom beží server</td>
+            </tr>
+            <tr>
+                <td><code>-D, --deamon</code></td>
+                <td>spustí server na pozadí</td>
+            </tr>
+            <tr>
+                <th colspan="2">Nastavenie spojenia</th>
+            </tr>
+            <tr>
+                <td><code>-p, --port &lt;číslo&gt;</code></td>
+                <td>špecifikácia portu</td>
+            </tr>
+            <tr>
+                <td><code>-V</code></td>
+                <td>použije protokol IPv6</td>
+            </tr>
+            <tr>
+                <td><code>-u, --udp</code></td>
+                <td>použije UDP protokol namiesto TCP</td>
+            </tr>
+            <tr>
+                <td><code>-b, --bandwith &lt;číslo&gt;[KM]</code></td>
+                <td>použitie iba s -u, bude testovať do maximálnej priepustnosti
+                (implicitne 1 Mbps)</td>
+            </tr>
+            <tr>
+                <td><code>-P, --parallel &lt;číslo&gt;</code></td>
+                <td>vytvorí paralelné testovacie spojenia</td>
+            </tr>
+            <tr>
+                <th colspan="2">Špecifikácia výpisov</th>
+            </tr>
+            <tr>
+                <td><code>-f, --format [kmKM]</code></td>
+                <td>nastaví jednotky výpisu</td>
+            </tr>
+            <tr>
+                <td><code>-i, --interval &lt;číslo&gt;</code></td>
+                <td>periodické výpisy výsledkov v sekundách</td>
+            </tr>
+            <tr>
+                <td><code>-m, --print_mss </code></td>
+                <td>vypíše TCP MSS a MTU</td>
+            </tr>
+            <tr>
+                <th colspan="2">Nastavenie prenášaných dát</th>
+            </tr>
+            <tr>
+                <td><code>-F, --fileinput &lt;cesta&gt;</code></td>
+                <td>prenášane dáta zoberie zo súboru</td>
+            </tr>
+            <tr>
+                <td><code>-I, --stdin</code></td>
+                <td>prenášane dáta zoberie zo štandardného vstupu</td>
+            </tr>
+            <tr>
+                <th colspan="2">Obojsmerné testovanie</th>
+            </tr>
+            <tr>
+                <td><code>-d, --dualtest</code></td>
+                <td>obojsmerný test v súčasnom čase</td>
+            </tr>
+            <tr>
+                <td><code>-r, --tradeoff</code></td>
+                <td>obojsmerný test individuálne</td>
+            </tr>
+        </table>
+    </div>
+    <p class="footer">&copy; Pavol Loffay</p>
+    
+</div>
+  
+</body>
+</html>

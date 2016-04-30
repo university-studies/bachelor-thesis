@@ -1,0 +1,149 @@
+<!-- Autor: Pavol Loffay, xloffa00@fit.vutbr.cz -->
+<!-- Date: 1.3.2013 -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="iso-8859-2"> 
+    <meta name="author" content="Pavol Loffay">
+    <meta name="description" content="Meranie priepustnosti siete">
+    <title>Nástroje pre testovanie priepustnosti siete</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<!-- container... to je div v ktorom je vsetko a je centrovany na stred -->
+<div id="container">
+    <div class="header">
+        <img src="img/logo.png" alt="logo" width="940" height="190" />
+    </div>
+    
+    <div id="menu_buttons">
+        <div class="menu_button"><a href="index.html" class="menu_link">Úvod</a></div>
+        <div class="menu_button"><a href="iperf.html" class="menu_link">Iperf</a></div>
+        <div class="menu_button"><a href="netperf.html"
+                class="menu_link">Netperf</a></div>
+        <div class="menu_button"><a href="bwctl.html" class="menu_link">BWCTL</a></div>
+        <div class="menu_button"><a href="thrulay.html"
+                class="menu_link">Thrulay</a></div>
+        <div class="menu_button"><a href="nuttcp.html" class="menu_link">Nuttcp</a></div>
+        <div class="menu_button"><a href="bwping.html" class="menu_link">BWPing</a></div>
+        <div class="menu_button"><a href="owamp.html" class="menu_link">OWAMP</a></div>
+    </div>
+    
+    <div class="content">
+        <h1>Thrulay</h1>
+        Tento projekt bol pôvodne založený Stanislavom
+        Shanulov, ktorý implementoval jeho pôvodnú verziu.
+        Neskôr sa vývoja ujala organizácia Internet2, ku ktorej
+        sa pridal aj pôvodný autor. Druhou vývojovou vetvou je
+        nástroj Thrulay-ng, ktorý vznikol za podpory projektu 
+        Google Summer of Code. Oba tieto projekty sú úzko zviazané
+        a podporované organizáciou Internet2 pod vedením Jeff W. Boote.
+        Ako sme uviedli, nástroje sú si veľmi podobné a poskytujú takmer
+        také isté možnosti testovania. Jediný markantný rozdiel je, že
+        nástroj od organizácie Internet2 poskytuje pri UDP testovaní 
+        informácie o oneskorení a rozptyle oneskorenia. Pre naše účely 
+        sme vybrali verziu od organizácia Internet2.
+
+        <br>
+        <br>
+        <h3>Zdroje a základne spustenie</h3>
+        <a href="http://e2epi.internet2.edu/thrulay/" target="_blank">Domovská stránka</a>
+        <br>
+        <a href="http://e2epi.internet2.edu/thrulay/manpages.html"
+            target="_blank">Manuál</a>
+        <br>
+        <a href="http://sourceforge.net/projects/thrulay/" target="_blank">Link na stiahnutie</a> 
+        - Použitá verzia 0.9
+        <br>
+        <br>
+        Architektúra klient-server, thrulay, thrulayd.
+        <br>
+        Príklad základného spustenia klienta a servera:
+        <pre>$ thrulay &lt;adresa&gt;</pre>
+        <pre>$ thrulayd -d</pre>
+
+        <h2>Ukážka testov</h2>
+        <br>
+        Test <b>TCP priepustnosti</b>, <code>-i 0</code> vypne periodické výpisy.
+        <br>
+        <code>$ thrulay -t 20 -i 0 adresa</code>
+        <br>
+        <img src="img/thrulay_tcp.png" alt="thrulay -t 20 -i 0 host" width="500"
+        height="160">
+        <br>
+        <br>
+        Test <b>UDP priepustnosti</b> do hodnoty 100 Mbps.
+        <br>
+        <code>$ thrulay -t 10 -u 100M adresa</code>
+        <br>
+        <img src="img/thrulay_udp.png" alt="thrulay -t 10 -u 100M host"
+        width="500" height="100">
+
+        <br>
+        <br>
+        <h2>Nekorektné správanie</h2>
+        <br>
+        Neschopnosť naviazať spojenie pomocou sieťového protokolu IPv6.
+
+        <br>
+        <br>
+        <h2>Vybrané prepínače</h2>
+        <br>
+
+        <table class="table">
+            <caption>Vybrané prepínače nástroja Thrulay.</caption>
+            <tr>
+                <th>Parameter</th>
+                <th>Popis</th>
+            </tr>
+            <tr>
+                <th colspan="2">Prepínače pre thrulay</th>
+            </tr>
+            <tr>
+                <td><code>-p &lt;číslo&gt;</code></td>
+                <td>číslo portu, na ktorom počúva server</td>
+            </tr>
+            <tr>
+                <td><code>-t &lt;číslo&gt;</code></td>
+                <td>dĺžka trvania testu (implicitne 60 s)</td>
+            </tr>
+            <tr>
+                <td><code>-u &lt;číslo&gt;[kMGT]</code></td>
+                <td>UDP test s špecifikovanou priepustnosťou 
+                    v bitoch za sekundu, (k znamená 1000, 
+                    M 10<sup>5</sup>) </td>
+            </tr>
+            <tr>
+                <td><code>-m &lt;číslo&gt;</code></td>
+                <td>počet TCP tokov (implicitne 1)</td>
+            </tr>
+            <tr>
+                <td><code>-i &lt;číslo&gt;</code></td>
+                <td>interval výpisov, ak sa zadá 0 vypíše
+                len výsledok (implicitne 1 s)</td>
+            </tr>
+            <tr>
+                <th colspan="2">Prepínače pre thrulayd</th>
+            </tr>
+            <tr>
+                <td><code>-p &lt;číslo&gt;</code></td>
+                <td>určí prijímajúci port (implicitne 5003)</td>
+            </tr>
+            <tr>
+                <td><code>-a &lt;adresa/maska&gt;</code></td>
+                <td>prijme spojenia iba z uvedenej adresy</td>
+            </tr>
+            <tr>
+                <td><code>-d</code></td>
+                <td>program sa spustí na popredí a bude vypisovať informácie 
+                    o testoch na štandardný výstup</td>
+            </tr>
+        </table>
+    </div>
+    <p class="footer">&copy; Pavol Loffay</p>
+</div>
+  
+</body>
+</html>

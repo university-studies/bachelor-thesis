@@ -1,0 +1,93 @@
+html, div, span, applet, object, iframe, h2, h3, h4, h5, h6, blockquote, pre, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, fieldset, form, label, legend, tbody, tfoot, thead{
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+    vertical-align: baseline;
+}  
+
+#container {
+    min-height: 250px;
+    margin: 0 auto;
+    position: relative;
+    width: 960px;
+    border: 1px solid #4f4f4f;
+}
+
+.header{
+    width: 100%;
+    height: 200px;
+    float:center;
+    text-align:center;
+}
+
+#menu_buttons {
+    width: 100%;
+    height: 50px;
+    background: blue;
+}
+
+.menu_button {
+    background: none repeat scroll 0 0 black;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: left;
+    height: 36px;
+    overflow: hidden;
+    padding-top: 14px;
+    text-align: center;
+    width: 120px;
+}
+
+.menu_button:hover{
+    background: yelow;
+    color:red; 
+}
+
+.content {
+    width: 100%;
+    min-height: 450px;
+}
+
+.footer{
+    width: 100%;
+    height: 15px;
+    text-align: center;
+    color: #000000;
+    font-size: 10px;
+}
+
+.table{
+    margin-left:auto;
+    margin-right:auto;
+    border:1px solid black;
+    width:65%;
+    text-align:center;
+    border-collapse:collapse;
+}
+
+.menu_link{
+    color: white;
+    text-decoration:none;
+}
+.menu_link:hover{
+    color: red;
+    text-decoration:none;
+}
+
+caption{
+    caption-side:bottom;
+}
+
+th, td, tr{
+    border:1px solid black;
+}
+
+h1, h2 {
+    text-align:center;
+}
+
+.metodika {
+    border:0px solid white;
+}
